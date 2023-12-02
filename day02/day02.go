@@ -19,8 +19,9 @@ func gameNb(str string) (int, string) {
 	return nb, strTab[1]
 }
 
-func transformMap(str string) map[string]int {
-	myMap := make(map[string]int)
+func TransformMap(str string) map[string]int {
+	str = strings.Replace(str, "\r", "", -1)
+	var myMap map[string]int = make(map[string]int)
 	var results []string = strings.Split(str, ", ")
 	for _, element := range results {
 		var count []string = strings.Split(element, " ")
@@ -44,7 +45,7 @@ func possible(myMap map[string]int, redMax int, greenMax int, blueMax int) map[s
 }
 
 func possibleSet(set string, redMax int, greenMax int, blueMax int) bool {
-	myMap := transformMap(set)
+	myMap := TransformMap(set)
 	respect := possible(myMap, redMax, greenMax, blueMax)
 	for _, color := range colors {
 		if !respect[color] {
@@ -64,6 +65,24 @@ func possibleGame(game string, redMax int, greenMax int, blueMax int) bool {
 	return true
 }
 
+func Power(game string) int {
+	var pow int = 1
+	myMap := map[string]int{"red": 0, "green": 0, "blue": 0}
+	var sets []string = strings.Split(game, "; ")
+	for _, set := range sets {
+		var setMap map[string]int = TransformMap(set)
+		for _, color := range colors {
+			if setMap[color] > myMap[color] {
+				myMap[color] = setMap[color]
+			}
+		}
+	}
+	for _, color := range colors {
+		pow *= myMap[color]
+	}
+	return pow
+}
+
 func part1(str string) int {
 	var sum int = 0
 	var games []string = strings.Split(str, "\n")
@@ -72,6 +91,17 @@ func part1(str string) int {
 		if possibleGame(resultGame, 12, 13, 14) {
 			sum += numGame
 		}
+	}
+	return sum
+}
+
+func part2(str string) int {
+	var sum int = 0
+	var games []string = strings.Split(str, "\n")
+	for _, game := range games {
+		var resultGame []string = strings.Split(game, ": ")
+		var a int = Power(resultGame[1])
+		sum += a
 	}
 	return sum
 }
@@ -92,4 +122,6 @@ func main() {
 	var sol1 int = part1(inputday)
 	fmt.Println(sol1)
 
+	var sol2 int = part2(inputday)
+	fmt.Println(sol2)
 }

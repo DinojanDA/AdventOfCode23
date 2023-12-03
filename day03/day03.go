@@ -116,6 +116,77 @@ func numbers(chiffres []int) [][]int {
 	return indexNumbers
 }
 
+func identify(matrix [][]string, nbLignes int, nbColonnes int) [][2]int {
+	var index [][2]int
+	var i int = 0
+	for i < nbLignes-1 {
+		var j int = 0
+		for j < nbColonnes-1 {
+			if matrix[i][j] == "*" {
+				var add [2]int = [2]int{i, j}
+				index = append(index, add)
+			}
+			j++
+		}
+		i++
+	}
+	return index
+}
+
+func adjacent(matrix [][]string, i int, j int, nbLignes int, nbColonnes int) []int {
+	var adj []int
+	numbers1 := numbers(chiffres(matrix, i, nbColonnes))
+	for _, number := range numbers1 {
+		var nb string = ""
+		var b bool = false
+		for _, index := range number {
+			nb += matrix[i][index]
+			if index == (j+1) || index == (j-1) {
+				b = true
+			}
+		}
+		if b {
+			n, _ := strconv.Atoi(nb)
+			adj = append(adj, n)
+		}
+	}
+	if i != nbLignes-1 {
+		numbers2 := numbers(chiffres(matrix, i+1, nbColonnes))
+		for _, number := range numbers2 {
+			var nb string = ""
+			var b bool = false
+			for _, index := range number {
+				nb += matrix[i+1][index]
+				if index == (j+1) || index == (j-1) {
+					b = true
+				}
+			}
+			if b {
+				n, _ := strconv.Atoi(nb)
+				adj = append(adj, n)
+			}
+		}
+	}
+	if i != 0 {
+		numbers2 := numbers(chiffres(matrix, i-1, nbColonnes))
+		for _, number := range numbers2 {
+			var nb string = ""
+			var b bool = false
+			for _, index := range number {
+				nb += matrix[i-1][index]
+				if index == (j+1) || index == (j-1) {
+					b = true
+				}
+			}
+			if b {
+				n, _ := strconv.Atoi(nb)
+				adj = append(adj, n)
+			}
+		}
+	}
+	return adj
+}
+
 func part1(str string) int {
 	var sum int = 0
 	matrix, nbLignes, nbColonnes := conversionMatrice(str)
@@ -143,14 +214,20 @@ func part1(str string) int {
 	return sum
 }
 
-func main() {
-	matrix, nbLignes, nbCol := conversionMatrice(inputday)
-	fmt.Println(matrix[0][2])
-	fmt.Println(nbLignes, nbCol)
-	fmt.Println(voisins(matrix, 4, 5, nbLignes, nbCol))
-	c := chiffres(matrix, 0, nbCol)
-	fmt.Println(c)
-	fmt.Println(numbers(c))
+func part2(str string) int {
+	var sum int = 0
+	matrix, nbLignes, nbCol := conversionMatrice(str)
+	gears := identify(matrix, nbLignes, nbCol)
+	for _, gear := range gears {
+		adj := adjacent(matrix, gear[0], gear[1], nbLignes, nbCol)
+		if len(adj) == 2 {
+			sum += adj[0] * adj[1]
+		}
+	}
+	return sum
+}
 
+func main() {
 	fmt.Println(part1(inputday))
+	fmt.Println(part2(inputday))
 }

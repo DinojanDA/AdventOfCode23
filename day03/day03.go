@@ -157,7 +157,7 @@ func adjacent(matrix [][]string, i int, j int, nbLignes int, nbColonnes int) []i
 			var b bool = false
 			for _, index := range number {
 				nb += matrix[i+1][index]
-				if index == (j+1) || index == (j-1) {
+				if index == (j+1) || index == (j-1) || index == (j-1) {
 					b = true
 				}
 			}
@@ -168,13 +168,13 @@ func adjacent(matrix [][]string, i int, j int, nbLignes int, nbColonnes int) []i
 		}
 	}
 	if i != 0 {
-		numbers2 := numbers(chiffres(matrix, i-1, nbColonnes))
-		for _, number := range numbers2 {
+		numbers3 := numbers(chiffres(matrix, i-1, nbColonnes))
+		for _, number := range numbers3 {
 			var nb string = ""
 			var b bool = false
 			for _, index := range number {
 				nb += matrix[i-1][index]
-				if index == (j+1) || index == (j-1) {
+				if index == (j+1) || index == (j-1) || index == (j) {
 					b = true
 				}
 			}

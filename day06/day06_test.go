@@ -24,6 +24,17 @@ func TestOneRace(t *testing.T) {
 	}
 }
 
+func TestConvertToTabInt(t *testing.T) {
+	var str string = "      7  15   30"
+	var expected []int = []int{7, 15, 30}
+	tab := convertToTabInt(str)
+	for i := 0; i < len(tab); i++ {
+		if tab[i] != expected[i] {
+			t.Errorf("Expected %d, got %d", expected[i], tab[i])
+		}
+	}
+}
+
 func TestPart1(t *testing.T) {
 	var sol1 int = part1(inputtest)
 	var expected int = 288

@@ -53,7 +53,7 @@ func multTab(tab []int) int {
 }
 
 func part1(str string) int {
-	var categories []string = strings.Split(inputday, "\r\n")
+	var categories []string = strings.Split(str, "\r\n")
 
 	var strTimes string = strings.Split(categories[0], ":")[1]
 	var strDistances string = strings.Split(categories[1], ":")[1]
@@ -73,7 +73,7 @@ func part1(str string) int {
 }
 
 func part2(str string) int {
-	var categories []string = strings.Split(inputday, "\r\n")
+	var categories []string = strings.Split(str, "\r\n")
 
 	var strTimes string = strings.Split(categories[0], ":")[1]
 	var strDistances string = strings.Split(categories[1], ":")[1]

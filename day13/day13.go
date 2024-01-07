@@ -92,7 +92,6 @@ func checkPairs(matrix [][]string, nbRow int, nbColumn int, index int, typ strin
 }
 
 func findAndCorrectSmudge(matrix [][]string, nbRow int, nbColumn int) (correctedMatrix [][]string) {
-	// Copie de la matrice pour éviter de modifier l'originale pendant la recherche.
 	correctedMatrix = make([][]string, len(matrix))
 	for i := range matrix {
 		correctedMatrix[i] = make([]string, len(matrix[i]))
@@ -108,7 +107,6 @@ func findAndCorrectSmudge(matrix [][]string, nbRow int, nbColumn int) (corrected
 			} else {
 				correctedMatrix[i][j] = "."
 			}
-			// Vérifier si la matrice a maintenant une ligne de réflexion valide.
 			if hasValidReflectionLine(correctedMatrix, matrix, nbRow, nbColumn) {
 				return correctedMatrix
 			}

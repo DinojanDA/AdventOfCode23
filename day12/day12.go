@@ -35,9 +35,7 @@ func sumTab(tab []int) int {
 }
 
 func splitIntoGroups(s string) []string {
-	// Split the string by '.'
 	parts := strings.Split(s, ".")
-	// Filter out empty strings
 	var groups []string
 	for _, part := range parts {
 		if part != "" {
@@ -120,15 +118,13 @@ func part2(str string) int {
 	sum := 0
 	var wg sync.WaitGroup
 
-	// Channel to collect results from goroutines
 	results := make(chan int, len(lines))
 
 	for _, line := range lines {
-		wg.Add(1) // Add to the wait group for each goroutine we are about to launch
+		wg.Add(1)
 
-		// Start a goroutine
 		go func(l string) {
-			defer wg.Done() // Signal the wait group once this goroutine is done
+			defer wg.Done()
 
 			transformedRecord := transformRecord(l)
 			possibilities := generatePossibilities(transformedRecord, 0)
@@ -140,17 +136,15 @@ func part2(str string) int {
 				}
 			}
 
-			results <- localSum // Send the local sum to the results channel
-		}(line) // Pass the current line to the goroutine
+			results <- localSum
+		}(line)
 	}
 
-	// Close the results channel when all goroutines are done
 	go func() {
-		wg.Wait()      // Wait for all goroutines to finish
-		close(results) // Close the channel to signal completion
+		wg.Wait()
+		close(results)
 	}()
 
-	// Sum results from the channel
 	for result := range results {
 		sum += result
 	}

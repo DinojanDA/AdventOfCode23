@@ -31,7 +31,6 @@ type Neighbour struct {
 type Position struct {
 	I, J int
 }
-type NeighboursFunc func(string) []string
 
 func neighbours(matrix [][]string, nbRow int, nbColumn int, i int, j int, orientation string) []Neighbour {
 	neighbours := []Neighbour{}
@@ -81,7 +80,6 @@ func neighbours(matrix [][]string, nbRow int, nbColumn int, i int, j int, orient
 				}
 
 			}
-			// East direction
 		case "E":
 			if matrix[i][j] == "|" {
 				if i > 0 {
@@ -130,8 +128,6 @@ func neighbours(matrix [][]string, nbRow int, nbColumn int, i int, j int, orient
 					neighbours = append(neighbours, Neighbour{i, j + 1, "E"})
 				}
 			}
-
-			// West direction
 		case "W":
 			if matrix[i][j] == "|" {
 				if i > 0 {

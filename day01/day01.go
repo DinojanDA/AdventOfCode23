@@ -14,7 +14,7 @@ var inputday string
 var inputday2 string
 
 var nbTab [10]string = [10]string{"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
-var nbInvTab [10]string = [10]string{"orez", "eno", "owt", "eerht", "ruof", "evif", "xis", "neves", "thgie", "enin"} // utile pour gérer le cas "one2one"
+var nbInvTab [10]string = [10]string{"orez", "eno", "owt", "eerht", "ruof", "evif", "xis", "neves", "thgie", "enin"}
 
 func convert(str string) []string {
 	var s []string

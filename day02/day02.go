@@ -107,18 +107,6 @@ func part2(str string) int {
 }
 
 func main() {
-
-	/*
-		var test string = "Game 10: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
-		nb, resultGame := gameNb(test)
-		fmt.Println(nb)
-		fmt.Println(resultGame)
-
-		fmt.Println(possibleGame(resultGame, 10, 12, 13))
-
-		fmt.Println(possibleSet("3 blue, 4 red", 3, 12, 13))
-	*/
-
 	var sol1 int = part1(inputday)
 	fmt.Println(sol1)
 
